@@ -13,6 +13,7 @@ from time import time
 from keras.preprocessing.image import ImageDataGenerator
 from GAN_models import *
 from losses import *
+import train
 
 # constants
 x_shape = 512
@@ -38,6 +39,8 @@ val_data = '../datasets/test/'
 store2 = '../generated_images/'
 store = "../datasets/generated_images/"
 
+store3 = "../datasets/generated_images3/"
+
 y_train = np.zeros((samples,1))
 samples = len(os.listdir(dataset))
 val_samples = len(os.listdir(val_data))
@@ -57,4 +60,4 @@ for i, image in enumerate(os.listdir(val_data)[:val_samples]):
 # stores cGAN's predictions
 gen_image_val = gen.predict(gray_val, batch_size=8)
 for j in range(val_samples):
-    cv2.imwrite(store+'/'+str(j)+'.jpg', gen_image_val[j])
+    cv2.imwrite(store3+'/'+str(j)+'.jpg', gen_image_val[j])

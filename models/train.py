@@ -46,7 +46,8 @@ cGAN = cGAN_model(gen, disc)
 disc.compile(loss=['binary_crossentropy'], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08), metrics=['accuracy'])
 cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))
 tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
-cGAN.load_weights("../datasets/generated_images/model.h5")
+#cGAN.load_weights("../datasets/generated_images/model.h5")
+cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
 
 # constants
 dataset = '../datasets/train/' 
