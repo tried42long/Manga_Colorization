@@ -13,7 +13,7 @@ from time import time
 from keras.preprocessing.image import ImageDataGenerator
 from GAN_models import *
 from losses import *
-import train
+#import train
 
 # constants
 x_shape = 512
@@ -41,8 +41,8 @@ store = "../datasets/generated_images/"
 
 store3 = "../datasets/generated_images3/"
 
-y_train = np.zeros((samples,1))
 samples = len(os.listdir(dataset))
+y_train = np.zeros((samples,1))
 val_samples = len(os.listdir(val_data))
 rgb = np.zeros((samples, x_shape, y_shape, 3))
 gray = np.zeros((samples, x_shape, y_shape, 1))
