@@ -15,7 +15,7 @@ from GAN_models import *
 from losses import *
 
 # constants
-epochs = 50
+epochs = 1 #50
 x_shape = 512
 y_shape = 512
 fixed_seed_num = 1234
