@@ -37,9 +37,8 @@ cGAN.load_weights("../datasets/generated_images/0.h5")
 dataset = '../datasets/train/' 
 val_data = '../datasets/test/'
 store2 = '../generated_images/'
-store = "../datasets/generated_images/"
+store = "../datasets/generated_images2/" #"../datasets/generated_images/"
 
-storeEX = "../datasets/generated_images4/"
 
 samples = len(os.listdir(dataset))
 y_train = np.zeros((samples,1))
@@ -60,4 +59,4 @@ for i, image in enumerate(os.listdir(val_data)[:val_samples]):
 # stores cGAN's predictions
 gen_image_val = gen.predict(gray_val, batch_size=8)
 for j in range(val_samples):
-    cv2.imwrite(storeEX+'/'+str(j)+'.jpg', gen_image_val[j])
+    cv2.imwrite(store+'/'+str(j)+'.jpg', gen_image_val[j])
