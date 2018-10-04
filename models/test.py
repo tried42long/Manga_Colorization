@@ -31,13 +31,13 @@ cGAN = cGAN_model(gen, disc)
 disc.compile(loss=['binary_crossentropy'], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08), metrics=['accuracy'])
 cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))
 tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
-cGAN.load_weights("../datasets/generated_images/0.h5")
+#cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
+cGAN.load_weights("../datasets/my_generated_images/0.h5")
 
 # constants
-dataset = '../datasets/train/' 
-val_data = '../datasets/test/'
-store2 = '../generated_images/'
-store = "../datasets/generated_images2/" #"../datasets/generated_images/"
+dataset = '../datasets/my_train/'  # '../datasets/train/' 
+val_data = '../datasets/my_test/'
+store = "../datasets/my_generated_images/" #"../datasets/generated_images/"
 
 
 samples = len(os.listdir(dataset))

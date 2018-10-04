@@ -50,11 +50,10 @@ tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
 
 # constants
-dataset =  '../datasets/train2/'  # '../datasets/train/' 
-store2 = '../generated_images/'
-val_data = '../datasets/validation/'
-store = '../datasets/generated_Images2/'   #'../datasets/generated_Images/'
-
+dataset =  '../datasets/my_train/'  # '../datasets/train/' 
+#store2 = '../generated_images/'       #notused
+val_data = '../datasets/my_validation/'
+store = '../datasets/my_generated_Images/'   #'../datasets/generated_Images/'
 
 
 samples = len(os.listdir(dataset))
