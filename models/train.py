@@ -16,8 +16,8 @@ from losses import *
 
 # constants
 epochs = 1 #50
-x_shape = 512
-y_shape = 512
+x_shape = 512 #512
+y_shape = 512 #512
 fixed_seed_num = 1234
 np.random.seed(fixed_seed_num)
 tf.set_random_seed(fixed_seed_num)
@@ -44,14 +44,15 @@ cGAN = cGAN_model(gen, disc)
 
 # compile with custom loss functions
 disc.compile(loss=['binary_crossentropy'], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08), metrics=['accuracy'])
-cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))
-tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+cGAN.compile(loss=['binary_crossentropy',custom_loss_2], loss_weights=[5, 100], optimizer=Adam(lr=1E-4, beta_1=0.9, beta_2=0.999, epsilon=1e-08))   #linear setting tensor
+tensorboard = TensorBoard(log_dir="logs/{}".format(time())) 
 #cGAN.load_weights("../datasets/generated_images/model.h5")
-cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
+#cGAN.load_weights("../datasets/generated_images/cGAN_model.h5")
+cGAN.load_weights("../datasets/my_generated_images/0.h5")
 
 # constants
 dataset =  '../datasets/my_train/'  # '../datasets/train/' 
-#store2 = '../generated_images/'       #notused
+store2 = '../datasets/my_generated_images_jpg/'       #notused
 val_data = '../datasets/my_validation/'
 store = '../datasets/my_generated_Images/'   #'../datasets/generated_Images/'
 
@@ -78,6 +79,7 @@ for i, image in enumerate(os.listdir(val_data)[:val_samples]):
     I = cv2.resize(I, (x_shape, y_shape))
     J = cv2.cvtColor(I, cv2.COLOR_BGR2GRAY)
     J = J.reshape(J.shape[0], J.shape[1], 1)
+    cv2.imwrite('alpha'+str(i)+'.png', J)                    #intermediate output
     rgb_val[i] = I; gray_val[i] = J
 
 
@@ -105,8 +107,8 @@ for e in range(epochs):
     if e%5 == 0:
         cGAN.save_weights(store+str(e)+'.h5') 
     gen_image_val = gen.predict(gray_val, batch_size=8)
-    # if e%1 == 0: 
-    #     for j in range(val_samples):
-    #         if not os.path.exists(store2+str(j)+'/'):
-    #             os.mkdir(store+str(j)+'/')
-    #         cv2.imwrite(store+str(j)+'/'+str(e)+'.jpg', gen_image_val[j])
+    if e%1 == 0: 
+         for j in range(val_samples):
+            if not os.path.exists(store+str(j)+'/'):
+                os.mkdir(store+str(j)+'/')
+            cv2.imwrite(store+str(j)+'/'+str(e)+'.jpg', gen_image_val[j])
